@@ -3,7 +3,7 @@
     "hostRequirements": {
         "cpus": 4
     },
-    "onCreateCommand": "build.sh",
+    "onCreateCommand": "sudo apt-get update",
     "waitFor": "onCreateCommand",
     "customizations": {
         "codespaces": {
