@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components.Web;
 
-namespace Bit.AdminPanel.Client.Core.Shared;
+namespace Bit.TemplatePlayground.Client.Core.Shared;
 
 public partial class MainLayout : IDisposable
 {
@@ -9,7 +9,7 @@ public partial class MainLayout : IDisposable
     private bool _isUserAuthenticated;
     private ErrorBoundary _errorBoundaryRef = default!;
 
-    [AutoInject] private IStateService _stateService = default!;
+    [AutoInject] private IPrerenderStateService _stateService = default!;
 
     [AutoInject] private IExceptionHandler _exceptionHandler = default!;
 

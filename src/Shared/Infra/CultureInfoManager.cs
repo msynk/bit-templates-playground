@@ -1,7 +1,6 @@
-﻿using System.Globalization;
-using System.Reflection;
+﻿using System.Reflection;
 
-namespace Bit.AdminPanel.Shared.Infra;
+namespace Bit.TemplatePlayground.Shared.Infra;
 
 public class CultureInfoManager
 {

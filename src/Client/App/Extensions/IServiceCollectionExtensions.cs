@@ -1,5 +1,5 @@
-﻿using Bit.AdminPanel.Client.App;
-using Bit.AdminPanel.Client.App.Services;
+﻿using Bit.TemplatePlayground.Client.App;
+using Bit.TemplatePlayground.Client.App.Services;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -7,7 +7,7 @@ public static class IServiceCollectionExtensions
 {
     public static IServiceCollection AddClientAppServices(this IServiceCollection services)
     {
-        // Services being registered here can get injected in Android, iOS, Windows, and Mac.
+        // Services registered in this class can be injected in Android, iOS, Windows, and macOS.
 
 #if ANDROID
         services.AddClientAndroidServices();
@@ -21,6 +21,7 @@ public static class IServiceCollectionExtensions
 
         services.AddScoped<MainPage>();
         services.AddSingleton<IBitDeviceCoordinator, AppDeviceCoordinator>();
+        services.AddScoped<IExceptionHandler, AppExceptionHandler>();
 
         return services;
     }

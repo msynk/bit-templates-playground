@@ -1,10 +1,5 @@
-﻿using Bit.AdminPanel.Client.Core.Shared;
-#if BlazorServer
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-#endif
-
-namespace Bit.AdminPanel.Client.Web;
+﻿
+namespace Bit.TemplatePlayground.Client.Web;
 
 public partial class Program
 {
@@ -13,13 +8,17 @@ public partial class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.Configuration.AddJsonStream(typeof(MainLayout).Assembly.GetManifestResourceStream("Bit.AdminPanel.Client.Core.appsettings.json")!);
+        builder.Configuration.AddJsonStream(typeof(MainLayout).Assembly.GetManifestResourceStream("Bit.TemplatePlayground.Client.Core.appsettings.json")!);
 
 #if DEBUG
         if (OperatingSystem.IsWindows())
         {
             // The following line (using the * in the URL), allows the emulators and mobile devices to access the app using the host IP address.
             builder.WebHost.UseUrls("https://localhost:4031", "http://localhost:4030", "https://*:4031", "http://*:4030");
+        }
+        else
+        {
+            builder.WebHost.UseUrls("https://localhost:4031", "http://localhost:4030");
         }
 #endif
 

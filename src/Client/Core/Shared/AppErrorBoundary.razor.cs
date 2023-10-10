@@ -1,6 +1,9 @@
 ﻿
-namespace Bit.AdminPanel.Client.Core.Shared;
+namespace Bit.TemplatePlayground.Client.Core.Shared;
 
+/// <summary>
+/// https://learn.microsoft.com/en-us/aspnet/core/blazor/fundamentals/handle-errors
+/// </summary>
 public partial class AppErrorBoundary
 {
     private bool _showException;
@@ -25,7 +28,7 @@ public partial class AppErrorBoundary
 
     private void Refresh()
     {
-        _navigationManager.ForceReload();
+        _navigationManager.Refresh(forceReload: true);
     }
 
     private void GoHome()

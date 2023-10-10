@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Net.Http.Headers;
 
-namespace Bit.AdminPanel.Server.Api.Startup;
+namespace Bit.TemplatePlayground.Server.Api.Startup;
 
 public class Middlewares
 {
@@ -23,19 +23,6 @@ public class Middlewares
         }
 
 #if BlazorWebAssembly
-        app.Use(async (context, next) =>
-        {
-            context.Response.OnStarting(async () =>
-            {
-                // DLLs' compression is lost via CDNs like Cloud flare. We use 'no-transform' in the cache header,
-                // ensuring the CDN returns the original, compressed response to the client.
-                if (context.Response?.Headers?.ContentType.ToString() is System.Net.Mime.MediaTypeNames.Application.Octet)
-                    context.Response.Headers.Append(HeaderNames.CacheControl, "no-transform");
-            });
-
-            await next.Invoke(context);
-        });
-
         app.UseBlazorFrameworkFiles();
 #endif
 
@@ -49,7 +36,7 @@ public class Middlewares
         {
             OnPrepareResponse = ctx =>
             {
-                // https://bitplatform.dev/bit.adminpanel/cache-mechanism
+                // https://bitplatform.dev/templates/cache-mechanism
                 ctx.Context.Response.GetTypedHeaders().CacheControl = new CacheControlHeaderValue()
                 {
                     MaxAge = TimeSpan.FromDays(7),

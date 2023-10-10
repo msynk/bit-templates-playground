@@ -1,17 +1,17 @@
 ﻿using System.IO.Compression;
+using System.Net;
 using System.Net.Mail;
-using Bit.AdminPanel.Server.Api.Services.Implementations;
+using Bit.TemplatePlayground.Server.Api.Services;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.OData;
 using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.Extensions.DependencyInjection;
 #if BlazorWebAssembly
-using Bit.AdminPanel.Client.Web.Services.Implementations;
-using Bit.AdminPanel.Client.Core.Services.Implementations;
+using Bit.TemplatePlayground.Client.Web.Services;
+using Bit.TemplatePlayground.Client.Core.Services;
 using Microsoft.AspNetCore.Components;
 #endif
 
-namespace Bit.AdminPanel.Server.Api.Startup;
+namespace Bit.TemplatePlayground.Server.Api.Startup;
 
 public static class Services
 {
@@ -127,7 +127,10 @@ public static class Services
         {
             if (appSettings.EmailSettings.HasCredential)
             {
-                fluentEmailServiceBuilder.AddSmtpSender(appSettings.EmailSettings.Host, appSettings.EmailSettings.Port, appSettings.EmailSettings.UserName, appSettings.EmailSettings.Password);
+                fluentEmailServiceBuilder.AddSmtpSender(() => new(appSettings.EmailSettings.Host, appSettings.EmailSettings.Port)
+                {
+                    Credentials = new NetworkCredential(appSettings.EmailSettings.UserName, appSettings.EmailSettings.Password)
+                });
             }
             else
             {

@@ -1,4 +1,4 @@
-﻿namespace Bit.AdminPanel.Client.App;
+﻿namespace Bit.TemplatePlayground.Client.App;
 
 public partial class MainPage
 {
@@ -14,25 +14,6 @@ public partial class MainPage
         SetupStatusBar();
     }
 
-    private async void ContentPage_Loaded(object sender, EventArgs e)
-    {
-        try
-        {
-#if WINDOWS && RELEASE
-            var webView2 = (blazorWebView.Handler.PlatformView as Microsoft.UI.Xaml.Controls.WebView2);
-            await webView2.EnsureCoreWebView2Async();
-
-            var settings = webView2.CoreWebView2.Settings;
-            settings.IsZoomControlEnabled = false;
-            settings.AreBrowserAcceleratorKeysEnabled = false;
-#endif
-        }
-        catch (Exception exp)
-        {
-            _exceptionHandler.Handle(exp);
-        }
-    }
-
     private void SetupBlazorWebView()
     {
         BlazorWebViewHandler.BlazorWebViewMapper.AppendToMapping("CustomBlazorWebViewMapper", (handler, view) =>
@@ -44,6 +25,8 @@ public partial class MainPage
             }
 #elif IOS || MACCATALYST
             handler.PlatformView.Configuration.AllowsInlineMediaPlayback = true;
+
+            handler.PlatformView.ScrollView.Bounces = false;
             
             handler.PlatformView.BackgroundColor = UIKit.UIColor.Clear;
             handler.PlatformView.Opaque = false;
@@ -56,7 +39,9 @@ public partial class MainPage
 #endif
 #elif ANDROID
             handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
-
+            
+            handler.PlatformView.OverScrollMode = Android.Views.OverScrollMode.Never;
+            
             Android.Webkit.WebSettings settings = handler.PlatformView.Settings;
 
             settings.AllowFileAccessFromFileURLs =
@@ -75,6 +60,25 @@ public partial class MainPage
                 settings.BlockNetworkImage = false;
 #endif
         });
+
+        Loaded += async delegate
+        {
+            try
+            {
+#if WINDOWS && RELEASE
+                var webView2 = (Microsoft.UI.Xaml.Controls.WebView2)blazorWebView.Handler.PlatformView;
+                await webView2.EnsureCoreWebView2Async();
+
+                var settings = webView2.CoreWebView2.Settings;
+                settings.IsZoomControlEnabled = false;
+                settings.AreBrowserAcceleratorKeysEnabled = false;
+#endif
+            }
+            catch (Exception exp)
+            {
+                _exceptionHandler.Handle(exp);
+            }
+        };
     }
 
     private void SetupStatusBar()

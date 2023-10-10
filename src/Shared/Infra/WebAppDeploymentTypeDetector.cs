@@ -1,7 +1,7 @@
-﻿namespace Bit.AdminPanel.Shared.Infra;
+﻿namespace Bit.TemplatePlayground.Shared.Infra;
 
 /// <summary>
-/// https://bitplatform.dev/bit.adminpanel/hosting-models
+/// https://bitplatform.dev/templates/hosting-models
 /// </summary>
 public class WebAppDeploymentTypeDetector
 {

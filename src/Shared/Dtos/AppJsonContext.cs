@@ -1,14 +1,15 @@
-﻿using Bit.AdminPanel.Shared.Dtos.Identity;
-using Bit.AdminPanel.Shared.Dtos.Categories;
-using Bit.AdminPanel.Shared.Dtos.Dashboard;
-using Bit.AdminPanel.Shared.Dtos.Products;
+﻿using Bit.TemplatePlayground.Shared.Dtos.Identity;
+using Bit.TemplatePlayground.Shared.Dtos.Categories;
+using Bit.TemplatePlayground.Shared.Dtos.Dashboard;
+using Bit.TemplatePlayground.Shared.Dtos.Products;
 
-namespace Bit.AdminPanel.Shared.Dtos;
+namespace Bit.TemplatePlayground.Shared.Dtos;
 
 /// <summary>
 /// https://devblogs.microsoft.com/dotnet/try-the-new-system-text-json-source-generator/
 /// </summary>
 [JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]
+[JsonSerializable(typeof(Dictionary<string, object>))]
 [JsonSerializable(typeof(UserDto))]
 [JsonSerializable(typeof(List<UserDto>))]
 [JsonSerializable(typeof(OverallAnalyticsStatsDataDto))]

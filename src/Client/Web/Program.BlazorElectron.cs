@@ -1,11 +1,9 @@
-﻿using Bit.AdminPanel.Client.Core.Shared;
-
-#if BlazorElectron
+﻿#if BlazorElectron
 using ElectronNET.API;
 using ElectronNET.API.Entities;
 #endif
 
-namespace Bit.AdminPanel.Client.Web;
+namespace Bit.TemplatePlayground.Client.Web;
 
 public partial class Program
 {
@@ -14,7 +12,7 @@ public partial class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.Configuration.AddJsonStream(typeof(MainLayout).Assembly.GetManifestResourceStream("Bit.AdminPanel.Client.Core.appsettings.json")!);
+        builder.Configuration.AddJsonStream(typeof(MainLayout).Assembly.GetManifestResourceStream("Bit.TemplatePlayground.Client.Core.appsettings.json")!);
 
         builder.WebHost.UseElectron(args);
         builder.Services.AddElectron();

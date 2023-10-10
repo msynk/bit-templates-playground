@@ -1,6 +1,6 @@
-﻿using Bit.AdminPanel.Shared.Dtos.Categories;
+﻿using Bit.TemplatePlayground.Shared.Dtos.Categories;
 
-namespace Bit.AdminPanel.Client.Core.Pages.Categories;
+namespace Bit.TemplatePlayground.Client.Core.Pages.Categories;
 
 [Authorize]
 public partial class CategoriesPage
@@ -8,7 +8,7 @@ public partial class CategoriesPage
     private bool _isLoading;
     private string _categoryNameFilter = string.Empty;
 
-    ConfirmMessageBox _confirmMessageBox = default!;
+    private ConfirmMessageBox _confirmMessageBox = default!;
     private BitDataGrid<CategoryDto>? _dataGrid;
     private BitDataGridItemsProvider<CategoryDto> _categoriesProvider = default!;
     private BitDataGridPaginationState _pagination = new() { ItemsPerPage = 10 };

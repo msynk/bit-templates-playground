@@ -1,10 +1,9 @@
-﻿using Microsoft.Extensions.Primitives;
-using MimeTypes;
-using Bit.AdminPanel.Server.Api.Models.Identity;
+﻿using MimeTypes;
+using Bit.TemplatePlayground.Server.Api.Models.Identity;
 using SystemFile = System.IO.File;
 using ImageMagick;
 
-namespace Bit.AdminPanel.Server.Api.Controllers;
+namespace Bit.TemplatePlayground.Server.Api.Controllers;
 
 [Route("api/[controller]/[action]")]
 [ApiController]
@@ -60,7 +59,8 @@ public partial class AttachmentController : AppControllerBase
             }
         }
 
-        var resizedFilePath = destFilePath.Replace(Path.GetExtension(destFilePath), "_256.webp");
+        destFileName = destFileName.Replace(Path.GetExtension(destFileName), "_256.webp");
+        var resizedFilePath = Path.Combine(userProfileImagesDir, destFileName);
 
         try
         {
@@ -72,7 +72,7 @@ public partial class AttachmentController : AppControllerBase
 
             sourceImage.Write(resizedFilePath, MagickFormat.WebP);
 
-            user.ProfileImageName = resizedFilePath;
+            user.ProfileImageName = destFileName;
 
             await _userManager.UpdateAsync(user);
         }

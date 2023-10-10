@@ -1,4 +1,4 @@
-﻿namespace Bit.AdminPanel.Client.Core.Pages.Home;
+﻿namespace Bit.TemplatePlayground.Client.Core.Pages.Home;
 
 public partial class ProductsPercentageWidget
 {
@@ -24,7 +24,7 @@ public partial class ProductsPercentageWidget
 
         try
         {
-            var data = await StateService.GetValue($"{nameof(HomePage)}-{nameof(ProductsPercentageWidget)}",
+            var data = await PrerenderStateService.GetValue($"{nameof(HomePage)}-{nameof(ProductsPercentageWidget)}",
                                 async () => await HttpClient.GetFromJsonAsync($"Dashboard/GetProductsPercentagePerCategoryStats",
                                     AppJsonContext.Default.ListProductPercentagePerCategoryDto)) ?? new();
 

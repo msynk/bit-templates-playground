@@ -1,8 +1,18 @@
 ﻿
-namespace Bit.AdminPanel.Client.Core.Shared;
+namespace Bit.TemplatePlayground.Client.Core.Shared;
 
 public partial class Footer
 {
+    private BitDropdownItem<string>[] _cultures = default!;
+
+    protected override Task OnInitAsync()
+    {
+        _cultures = CultureInfoManager.SupportedCultures
+                                      .Select(sc => new BitDropdownItem<string> { Value = sc.code, Text = sc.name })
+                                      .ToArray();
+        return base.OnInitAsync();
+    }
+
 #if MultilingualEnabled
 
     protected async override Task OnAfterFirstRenderAsync()
@@ -32,11 +42,6 @@ public partial class Footer
         await JsRuntime.InvokeVoidAsync("window.App.setCookie", ".AspNetCore.Culture", cultureCookie, 30 * 24 * 3600);
 #endif
 
-        NavigationManager.ForceReload();
-    }
-
-    private static List<BitDropdownItem> GetCultures()
-    {
-        return CultureInfoManager.SupportedCultures.Select(sc => new BitDropdownItem { Value = sc.code, Text = sc.name }).ToList();
+        NavigationManager.Refresh(forceReload: true);
     }
 }

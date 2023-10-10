@@ -1,12 +1,8 @@
-﻿using System;
-using Microsoft.Maui;
-using Microsoft.Maui.Hosting;
-
-namespace Bit.AdminPanel.Client.App;
+﻿namespace Bit.TemplatePlayground.Client.App;
 
 class Program : MauiApplication
 {
-	protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiAppBuilder().CreateMauiApp();
+	protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
 
 	static void Main(string[] args)
 	{
